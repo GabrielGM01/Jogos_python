@@ -4,24 +4,20 @@ def jogar():
     apresentacao_do_game()
     palavra_secreta = carregar_palavra_secreta()
     letras_acertadas = verificar_letras_acertadas(palavra_secreta)
+
     erros = 6
+    vitoria = True
     while(erros):
         print(letras_acertadas)
-        tentativa = input("Digite uma Letra:")
-        tentativa = tentativa.strip().upper()
-
+        tentativa = chute()
         if(tentativa in palavra_secreta):
-            index = 0
-            for letra in palavra_secreta:
-                if(tentativa == letra):
-                    letras_acertadas[index] = letra
-                index += 1
-            acertou = "_" in letras_acertadas
-            if(acertou == False):
-                print(letras_acertadas)
-                print("A palavra secreta é {}".format(palavra_secreta))
-                print("Voce venceu")
-                break
+          marca_chute_correto(tentativa, letras_acertadas, palavra_secreta)
+          acertou = "_" in letras_acertadas
+          if(acertou == False):
+             print(letras_acertadas)
+             print("A palavra secreta é {}".format(palavra_secreta))
+             print("Voce venceu")
+             break
         else:
             erros -= 1
             if(erros == 0):
@@ -53,7 +49,20 @@ def carregar_palavra_secreta():
 def verificar_letras_acertadas(palavra):
     return ["_" for letra in palavra]
 
-"""-------------------------------------------------"""       
+"""-------------------------------------------------"""
+def chute():
+    tentativa = input("Digite uma Letra:")
+    tentativa = tentativa.strip().upper()
+    return tentativa
+
+"""-------------------------------------------------"""
+def marca_chute_correto(tentativa, letras_acertadas, palavra_secreta):
+    index = 0
+    for letra in palavra_secreta:
+        if(tentativa == letra):
+            letras_acertadas[index] = letra
+        index += 1
+"""-------------------------------------------------"""
 if (__name__== "__main__"):
 
     jogar() 
